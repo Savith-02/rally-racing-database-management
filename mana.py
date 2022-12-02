@@ -14,34 +14,37 @@ print("\nSelect the option needed out of following: \n\
 
 def ADD():  
 
-    name = input("Enter name: ")
-    for driver in drivers:
-        if name == driver[0]:
+    f = open('rally_details.txt', 'a+')
+    f.seek(0)
+    name = str.upper(input("Enter name: "))
+    global drivers
+    for i in range(len(drivers)):
+        if name in drivers[i]:
             print("Driver exist. Enter another name or choose update option(UDD)")
             return
-    
     age = input("Enter age: ")
     try:
         int(age)
     except:
-        print("Invalid input")
+        print("Invalid input , Enter integers only")
         return
-    team = input("Enter team: ")
-    car = input("Enter car: ")
+
+    team = str.upper(input("Enter team: "))
+    car = str.upper(input("Enter car: "))
     current_points = input("Enter current points: ")
     try:
-        float(current_points)
+        int(current_points)
     except:
-        print("Invalid input")
+        print("Invalid input, Enter integers only")
         return
-    #data = [name, age, team, car, current_points]
+
+
     data = ", ".join([name, age, team, car, current_points])
-    drivers.append([name, age, team, car, current_points])
-    f = open('details.txt','a+')   
-    #f.seek(0)
     f.writelines(data)
     f.write("\n")
     f.close()
+    drivers.append([name, age, team, car, current_points])
+    return drivers
 
 
 def DDD():
